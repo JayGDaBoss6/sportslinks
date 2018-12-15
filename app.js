@@ -1,30 +1,33 @@
-$.get('https://api.allorigins.ml/get?method=raw&url=' + encodeURIComponent('http://www.espn.com/nba/schedule') + '&callback=?', function(data){
+let today = new Date();
+let year = today.getFullYear();
+let month = parseInt(today.getMonth() + 1);
+let date = today.getDate();
 
- let myData = $.parseHTML($.trim(data))
- let half = myData[176].children[3];
- let todaysGames = half.children[2].children[0].children[0].children[0].children[2].children[2].children[0].children[1].children; 
+$.get(
+ "https://api.allorigins.ml/get?method=raw&url=" +
+  encodeURIComponent(
+   `http://www.espn.com/nba/schedule/_/date/${year}${month}${date}`
+  ) +
+  "&callback=?",
+ function(data) {
+  let myData = $.parseHTML($.trim(data));
+  let half = myData[176].children[3];
+  let todaysGames =
+   half.children[2].children[0].children[0].children[0].children[2].children[2]
+    .children[0].children[1].children;
 
- let gamesArray = Array.from(todaysGames);
- let numOfGames = gamesArray.length;
- let uiGames = document.querySelector('#games')
- 
- 
+  let gamesArray = Array.from(todaysGames);
+  let numOfGames = gamesArray.length;
+  let uiGames = document.querySelector("#games");
 
-   gamesArray.forEach(function(dis){
-    
-  let away = dis.children[0].children[1].children[1].getAttribute('title');
-  let home = dis.children[1].children[0].children[1].children[1].getAttribute('title');
-  console.log ();
-    
-  uiGames.innerHTML += `${away} at ${home} <br/><br/>`
-    
-    
- })
- 
-  
- 
- 
+  gamesArray.forEach(function(dis) {
+   let away = dis.children[0].children[1].children[1].getAttribute("title");
+   let home = dis.children[1].children[0].children[1].children[1].getAttribute(
+    "title"
+   );
+   console.log();
 
-
- 
-});
+   uiGames.innerHTML += `${away} at ${home} <br/><br/>`;
+  });
+ }
+);
