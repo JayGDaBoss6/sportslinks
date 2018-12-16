@@ -4,7 +4,7 @@ let month = parseInt(today.getMonth() + 1);
 let date = today.getDate();
 
 $.get(
- "https://api.allorigins.ml/get?method=raw&url=" +
+ 'https://api.allorigins.ml/get?method=raw&url=' +
   encodeURIComponent(
    `http://www.espn.com/nba/schedule/_/date/${year}${month}${date}`
   ) +
